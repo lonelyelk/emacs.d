@@ -1,6 +1,8 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
+(setq mac-command-modifier 'super)
+
 (require 'package)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
@@ -44,6 +46,8 @@
   :config
   (define-key evil-ex-map "b " 'helm-mini))
 
+;; (define-key evil-ex-map "e" 'helm-find-files)
+
 (use-package projectile
   :ensure t
   :defer t
@@ -78,6 +82,7 @@
   :mode "\\.jsx?\\'"
   :config
   (setq-default js2-basic-offset 4)
+  (setq-default tab-width 4)
   (add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode)))
 
 (use-package linum-relative
@@ -113,16 +118,23 @@
 	 ("C-c C-g l" . magit-file-log)
 	 ("C-c f" . magit-grep)))
   
-;;(use-package smart-mode-line-powerline-theme
-;;  :ensure t)
-
 (use-package smart-mode-line
   :ensure t
   :init
   (setq sml/theme 'respectful)
   (sml/setup))
 
-;; (define-key evil-ex-map "e" 'helm-find-files)
+(use-package evil-nerd-commenter
+  :ensure t
+  :init
+  (global-set-key (kbd "s-/") 'evilnc-comment-or-uncomment-lines)
+  (global-evil-leader-mode)
+  (evil-leader/set-key
+    "\\" 'evilnc-comment-operator)
+  :config
+  (setq evilnc-comment-both-snippet-html t))
 
 (global-set-key [home] 'move-beginning-of-line)
 (global-set-key [end] 'move-end-of-line)
+(global-set-key (kbd "s-<left>") 'move-beginning-of-line)
+(global-set-key (kbd "s-<right>") 'move-end-of-line)
