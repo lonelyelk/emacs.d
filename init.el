@@ -16,7 +16,9 @@
 (eval-when-compile
     (require 'use-package))
 
-(load-theme 'solarized-dark t)
+(use-package solarized-theme
+  :ensure t
+  :init (load-theme 'solarized-dark t))
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
@@ -111,6 +113,15 @@
 	 ("C-c C-g l" . magit-file-log)
 	 ("C-c f" . magit-grep)))
   
+;;(use-package smart-mode-line-powerline-theme
+;;  :ensure t)
+
+(use-package smart-mode-line
+  :ensure t
+  :init
+  (setq sml/theme 'respectful)
+  (sml/setup))
+
 ;; (define-key evil-ex-map "e" 'helm-find-files)
 
 (global-set-key [home] 'move-beginning-of-line)
