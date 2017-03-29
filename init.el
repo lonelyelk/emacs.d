@@ -117,11 +117,18 @@
   :bind (("C-c g" . magit-status)
 	 ("C-c C-g l" . magit-file-log)
 	 ("C-c f" . magit-grep)))
-  
+
+(use-package nyan-mode
+  :ensure t
+  :config
+  (setq nyan-wavy-trail t)
+  (nyan-mode +1))
+
 (use-package smart-mode-line
   :ensure t
   :init
   (setq sml/theme 'respectful)
+  (setq sml/shorten-modes t)
   (sml/setup))
 
 (use-package evil-nerd-commenter
