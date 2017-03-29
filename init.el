@@ -122,7 +122,7 @@
   :ensure t
   :config
   (setq nyan-wavy-trail t)
-  (nyan-mode +1))
+  (if nyan-mode () (nyan-mode t)))
 
 (use-package smart-mode-line
   :ensure t
