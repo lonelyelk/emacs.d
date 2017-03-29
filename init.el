@@ -32,9 +32,15 @@
   :ensure t
   :init (global-evil-leader-mode))
 
+(use-package evil-surround
+  :ensure t
+  :init (global-evil-surround-mode 1))
+
 (use-package helm
   :ensure t
-  :init (helm-mode +1))
+  :init (helm-mode +1)
+  :config
+  (define-key evil-ex-map "b " 'helm-mini))
 
 (use-package projectile
   :ensure t
@@ -64,21 +70,47 @@
   :ensure t
   :init (exec-path-from-shell-initialize))
 
-;;(use-package flymake-jshint
-;;  :ensure t
-;;  :init (add-hook 'js-mode-hook 'flymake-mode))
 (use-package js2-mode
   :ensure t
+  :commands js2-jsx-mode
   :mode "\\.jsx?\\'"
-  :commands js2-mode
   :config
-  (setq-default
-   js2-basic-offset 4))
+  (setq-default js2-basic-offset 4)
+  (add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode)))
 
-;; (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
-(add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode))
+(use-package linum-relative
+  :ensure t
+  :init (linum-mode +1)
+  :config
+  (setq linum-relative-current-symbol "")
+  (linum-relative-global-mode))
 
-(define-key evil-ex-map "b " 'helm-mini)
+(use-package company
+  :ensure t
+  :init (global-company-mode))
+
+(use-package elm-mode
+  :ensure t
+  :config
+  (add-to-list 'company-backends 'company-elm)
+  (setq-default elm-format-on-save t))
+
+(use-package web-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.handlebars\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.xml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode)))
+
+(use-package magit
+  :ensure t
+  :bind (("C-c g" . magit-status)
+	 ("C-c C-g l" . magit-file-log)
+	 ("C-c f" . magit-grep)))
+  
 ;; (define-key evil-ex-map "e" 'helm-find-files)
 
 (global-set-key [home] 'move-beginning-of-line)
