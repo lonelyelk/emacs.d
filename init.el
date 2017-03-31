@@ -30,7 +30,19 @@
 
 (use-package evil
   :ensure t
-  :init (evil-mode +1))
+  :init (evil-mode +1)
+  :config
+  (defun evil-toggle-input-method ()
+    "when toggle on input method, switch to evil-insert-state if possible.
+    when toggle off input method, switch to evil-normal-state if current state is evil-insert-state"
+    (interactive)
+    (if (not current-input-method)
+	(if (not (string= evil-state "insert"))
+	    (evil-insert-state))
+        (if (string= evil-state "insert")
+            (evil-normal-state)))
+    (toggle-input-method))
+    (global-set-key (kbd "C-\\") 'evil-toggle-input-method))
 
 (use-package evil-leader
   :ensure t
@@ -141,7 +153,73 @@
   :config
   (setq evilnc-comment-both-snippet-html t))
 
+(use-package wcheck-mode
+  :ensure t
+  :init (wcheck-change-language 'Русский)
+  :config
+  (global-set-key (kbd "C-c s") 'wcheck-mode)
+  (global-set-key (kbd "C-c l") 'wcheck-change-language)
+  (global-set-key (kbd "C-c c") 'wcheck-actions)
+  (global-set-key (kbd "C-c n") 'wcheck-jump-forward)
+  (global-set-key (kbd "C-c p") 'wcheck-jump-backward)
+  (setq wcheck-language-data
+	'(("Русский"
+	   (program . "/usr/local/bin/enchant")
+	   (args "-d" "ru" "-l")
+	   (action-program . "/usr/local/bin/enchant")
+	   (action-args "-d" "ru" "-a")
+	   (action-parser . wcheck-parser-ispell-suggestions))
+	  ("English"
+	   (program . "/usr/local/bin/enchant")
+	   (args "-d" "en" "-l")
+	   (action-program . "/usr/local/bin/enchant")
+	   (action-args "-d" "en" "-a")
+	   (action-parser . wcheck-parser-ispell-suggestions))
+	  ("Français"
+	   (program . "/usr/local/bin/enchant")
+	   (args "-d" "fr" "-l")
+	   (action-program . "/usr/local/bin/enchant")
+	   (action-args "-d" "fr" "-a")
+	   (action-parser . wcheck-parser-ispell-suggestions)))))
+
 (global-set-key [home] 'move-beginning-of-line)
 (global-set-key [end] 'move-end-of-line)
 (global-set-key (kbd "s-<left>") 'move-beginning-of-line)
 (global-set-key (kbd "s-<right>") 'move-end-of-line)
+
+(use-package neotree
+  :ensure t
+  :config
+  (evil-leader/set-key
+    "n"  'neotree-toggle)
+  ;; (setq projectile-switch-project-action 'neotree-projectile-action)
+  (add-hook 'neotree-mode-hook
+    (lambda ()
+      (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+      (define-key evil-normal-state-local-map (kbd "I") 'neotree-hidden-file-toggle)
+      (define-key evil-normal-state-local-map (kbd "z") 'neotree-stretch-toggle)
+      (define-key evil-normal-state-local-map (kbd "R") 'neotree-refresh)
+      (define-key evil-normal-state-local-map (kbd "m") 'neotree-rename-node)
+      (define-key evil-normal-state-local-map (kbd "c") 'neotree-create-node)
+      (define-key evil-normal-state-local-map (kbd "d") 'neotree-delete-node)
+
+      (define-key evil-normal-state-local-map (kbd "s") 'neotree-enter-vertical-split)
+      (define-key evil-normal-state-local-map (kbd "S") 'neotree-enter-horizontal-split)
+
+      (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter))))
+
+(use-package windmove
+  :ensure t
+  :config
+  (defun ignore-error-wrapper (fn)
+  "Funtion return new function that ignore errors.
+   The function wraps a function with `ignore-errors' macro."
+  (lexical-let ((fn fn))
+    (lambda ()
+      (interactive)
+      (ignore-errors
+        (funcall fn)))))
+  (global-set-key [s-M-left] (ignore-error-wrapper 'windmove-left))
+  (global-set-key [s-M-right] (ignore-error-wrapper 'windmove-right))
+  (global-set-key [s-M-up] (ignore-error-wrapper 'windmove-up))
+  (global-set-key [s-M-down] (ignore-error-wrapper 'windmove-down)))
