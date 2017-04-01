@@ -155,7 +155,6 @@
 
 (use-package wcheck-mode
   :ensure t
-  :init (wcheck-change-language 'Русский)
   :config
   (global-set-key (kbd "C-c s") 'wcheck-mode)
   (global-set-key (kbd "C-c l") 'wcheck-change-language)
@@ -223,3 +222,14 @@
   (global-set-key [s-M-right] (ignore-error-wrapper 'windmove-right))
   (global-set-key [s-M-up] (ignore-error-wrapper 'windmove-up))
   (global-set-key [s-M-down] (ignore-error-wrapper 'windmove-down)))
+
+(load "~/.emacs.d/ru-typo.el")
+(use-package ru-typo
+  :config
+  (global-set-key (kbd "C-c r") (lambda ()
+				  (interactive)
+				  (set-input-method "russian-computer")
+				  (turn-on-ru-typo)
+				  (wcheck-change-language "Русский")
+				  (wcheck-mode))))
+
