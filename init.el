@@ -54,10 +54,11 @@
 
 (use-package helm
   :ensure t
-  :init (helm-mode +1)
+  :init
+  (require 'helm-config)
+  (helm-mode +1)
   :config
   (define-key evil-ex-map "b " 'helm-mini))
-
 ;; (define-key evil-ex-map "e" 'helm-find-files)
 
 (use-package projectile
