@@ -1,3 +1,12 @@
+;; ru-typo.el --- Minor mode inspired by smart-quotes.el for GNU Emacs
+
+;; Author: Sergey Kruk <sergey.kruk@gmail.com>
+;; Created: 2017-04-01
+
+;; Russian Typographer is a minor mode that uses quotes and dash to
+;; insert Russian fir and paw quotes and long dash with
+;; non breaking space accordingly.
+
 (defgroup ru-typo nil
   "Minor mode for typography in russian texts."
   :group 'editing)
@@ -79,7 +88,9 @@ For now: quotes and long dash."
 			  (decode-char 'ucs ru-typo-right-fir-quote)))
   :keymap '(("'" . ru-typo-quotes-insert-single)
 	    ("\"" . ru-typo-quotes-insert-double)
-	    ("-" . ru-typo-mdash-insert)))
+	    ("-" . ru-typo-mdash-insert)
+	    ("§" . (lambda () (interactive) (insert-char ?ё)))
+	    ("№" . (lambda () (interactive) (insert-char ?#)))))
 
 ;;;###autoload
 (defun turn-on-ru-typo ()
