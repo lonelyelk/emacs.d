@@ -16,7 +16,7 @@
   "Toggle ru-typo-mode."
   :set 'custom-set-minor-mode
   :initialize 'custom-initialize-default
-  :version "1.0"
+  :version "1.0.0"
   :type 'boolean
   :group 'ru-typo
   :require 'ru-typo)

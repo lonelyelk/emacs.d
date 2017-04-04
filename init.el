@@ -224,6 +224,9 @@
   (global-set-key [s-M-up] (ignore-error-wrapper 'windmove-up))
   (global-set-key [s-M-down] (ignore-error-wrapper 'windmove-down)))
 
+(load "~/.emacs.d/ru-syntax.el")
+(use-package ru-syntax)
+
 (load "~/.emacs.d/ru-typo.el")
 (use-package ru-typo
   :config
@@ -231,6 +234,5 @@
 				  (interactive)
 				  (set-input-method "russian-computer")
 				  (turn-on-ru-typo)
-				  (wcheck-change-language "Русский")
-				  (wcheck-mode))))
+				  (turn-on-ru-syntax))))
 
