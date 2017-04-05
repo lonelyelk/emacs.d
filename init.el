@@ -237,4 +237,7 @@
 				  (turn-on-ru-typo)
 				  (turn-on-ru-syntax))))
 
-(global-set-key (kbd "M-s-«") (lambda () (interactive) (indent-region (point-min) (point-max))))
+(global-set-key (kbd "M-s-«") (lambda ()
+				(interactive)
+				(indent-region (point-min) (point-max))
+				(delete-trailing-whitespace (point-min) (point-max))))
