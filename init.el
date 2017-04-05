@@ -37,12 +37,13 @@
     when toggle off input method, switch to evil-normal-state if current state is evil-insert-state"
     (interactive)
     (if (not current-input-method)
-	(if (not (string= evil-state "insert"))
-	    (evil-insert-state))
-        (if (string= evil-state "insert")
-            (evil-normal-state)))
-    (toggle-input-method))
-    (global-set-key (kbd "C-\\") 'evil-toggle-input-method))
+		(if (not (string= evil-state "insert"))
+			(evil-insert-state))
+	  (if (string= evil-state "insert")
+		  (evil-normal-state)))
+	(toggle-input-method))
+  (global-set-key (kbd "C-\\") 'evil-toggle-input-method)
+  (global-set-key (kbd "C-c -") (lambda () (interactive) (evil-scroll-line-to-center nil))))
 
 (use-package evil-leader
   :ensure t
