@@ -12,11 +12,11 @@
 (package-initialize)
 
 (unless (package-installed-p 'use-package)
-    (package-refresh-contents)
-      (package-install 'use-package))
+  (package-refresh-contents)
+  (package-install 'use-package))
 
 (eval-when-compile
-    (require 'use-package))
+  (require 'use-package))
 
 (use-package solarized-theme
   :ensure t
@@ -37,11 +37,11 @@
     when toggle off input method, switch to evil-normal-state if current state is evil-insert-state"
     (interactive)
     (if (not current-input-method)
-		(if (not (string= evil-state "insert"))
-			(evil-insert-state))
-	  (if (string= evil-state "insert")
-		  (evil-normal-state)))
-	(toggle-input-method))
+	(if (not (string= evil-state "insert"))
+	    (evil-insert-state))
+      (if (string= evil-state "insert")
+	  (evil-normal-state)))
+    (toggle-input-method))
   (global-set-key (kbd "C-\\") 'evil-toggle-input-method)
   (global-set-key (kbd "C-c -") (lambda () (interactive) (evil-scroll-line-to-center nil))))
 
@@ -195,31 +195,31 @@
     "n"  'neotree-toggle)
   ;; (setq projectile-switch-project-action 'neotree-projectile-action)
   (add-hook 'neotree-mode-hook
-    (lambda ()
-      (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
-      (define-key evil-normal-state-local-map (kbd "I") 'neotree-hidden-file-toggle)
-      (define-key evil-normal-state-local-map (kbd "z") 'neotree-stretch-toggle)
-      (define-key evil-normal-state-local-map (kbd "R") 'neotree-refresh)
-      (define-key evil-normal-state-local-map (kbd "m") 'neotree-rename-node)
-      (define-key evil-normal-state-local-map (kbd "c") 'neotree-create-node)
-      (define-key evil-normal-state-local-map (kbd "d") 'neotree-delete-node)
+	    (lambda ()
+	      (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+	      (define-key evil-normal-state-local-map (kbd "I") 'neotree-hidden-file-toggle)
+	      (define-key evil-normal-state-local-map (kbd "z") 'neotree-stretch-toggle)
+	      (define-key evil-normal-state-local-map (kbd "R") 'neotree-refresh)
+	      (define-key evil-normal-state-local-map (kbd "m") 'neotree-rename-node)
+	      (define-key evil-normal-state-local-map (kbd "c") 'neotree-create-node)
+	      (define-key evil-normal-state-local-map (kbd "d") 'neotree-delete-node)
 
-      (define-key evil-normal-state-local-map (kbd "s") 'neotree-enter-vertical-split)
-      (define-key evil-normal-state-local-map (kbd "S") 'neotree-enter-horizontal-split)
+	      (define-key evil-normal-state-local-map (kbd "s") 'neotree-enter-vertical-split)
+	      (define-key evil-normal-state-local-map (kbd "S") 'neotree-enter-horizontal-split)
 
-      (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter))))
+	      (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter))))
 
 (use-package windmove
   :ensure t
   :config
   (defun ignore-error-wrapper (fn)
-  "Funtion return new function that ignore errors.
+    "Funtion return new function that ignore errors.
    The function wraps a function with `ignore-errors' macro."
-  (lexical-let ((fn fn))
-    (lambda ()
-      (interactive)
-      (ignore-errors
-        (funcall fn)))))
+    (lexical-let ((fn fn))
+      (lambda ()
+	(interactive)
+	(ignore-errors
+	  (funcall fn)))))
   (global-set-key [s-M-left] (ignore-error-wrapper 'windmove-left))
   (global-set-key [s-M-right] (ignore-error-wrapper 'windmove-right))
   (global-set-key [s-M-up] (ignore-error-wrapper 'windmove-up))
@@ -237,3 +237,4 @@
 				  (turn-on-ru-typo)
 				  (turn-on-ru-syntax))))
 
+(global-set-key (kbd "M-s-«") (lambda () (interactive) (indent-region (point-min) (point-max))))
