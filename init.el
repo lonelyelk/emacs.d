@@ -43,7 +43,7 @@
 	  (evil-normal-state)))
     (toggle-input-method))
   (global-set-key (kbd "C-\\") 'evil-toggle-input-method)
-  (global-set-key (kbd "C-c -") (lambda () (interactive) (evil-scroll-line-to-center nil))))
+  (global-set-key (kbd "M-s-–") (lambda () (interactive) (evil-scroll-line-to-center nil))))
 
 (use-package evil-leader
   :ensure t
@@ -148,7 +148,7 @@
 (use-package evil-nerd-commenter
   :ensure t
   :init
-  (global-set-key (kbd "s-/") 'evilnc-comment-or-uncomment-lines)
+  (global-set-key (kbd "M-s-÷") 'evilnc-comment-or-uncomment-lines)
   (global-evil-leader-mode)
   (evil-leader/set-key
     "\\" 'evilnc-comment-operator)
