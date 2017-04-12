@@ -132,6 +132,9 @@
 	 ("C-c C-g l" . magit-file-log)
 	 ("C-c f" . magit-grep)))
 
+(use-package evil-magit
+  :ensure t)
+
 (use-package nyan-mode
   :ensure t
   :config
