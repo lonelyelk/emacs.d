@@ -41,9 +41,9 @@
   :type 'character
   :group 'ru-typo)
 
-(defcustom ru-typo-nbspace #xA0
+(defcustom ru-typo-nbspace "&nbsp;"
   "Non-breakable space (nbspace)"
-  :type 'character
+  :type 'string
   :group 'ru-typo)
 
 (defcustom ru-typo-mdash #x2014
@@ -77,7 +77,7 @@ dash to turn it into mdash"
 (defun ru-typo-mdash-insert ()
   (interactive)
   (insert (if (looking-back ru-typo-mdash-left-context (- (point) 2))
-	      (progn (delete-char -2) (string ru-typo-nbspace ru-typo-mdash))
+	      (progn (delete-char -2) (concat ru-typo-nbspace (string ru-typo-mdash)))
 	    "-")))
 
 ;;;###autoload
