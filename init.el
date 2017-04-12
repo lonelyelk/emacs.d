@@ -240,6 +240,7 @@
 				      (progn
 					(set-input-method nil)
 					(setq default-input-method nil)
+					(inactivate-input-method)
 					(turn-off-ru-typo)
 					(turn-off-ru-syntax))
 				    (progn
