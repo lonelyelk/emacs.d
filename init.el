@@ -234,11 +234,18 @@
 (load "~/.emacs.d/ru-typo.el")
 (use-package ru-typo
   :config
-  (global-set-key (kbd "C-c r") (lambda ()
+  (global-set-key (kbd "M-s-®") (lambda ()
 				  (interactive)
-				  (set-input-method "russian-computer")
-				  (turn-on-ru-typo)
-				  (turn-on-ru-syntax))))
+				  (if (or current-input-method default-input-method)
+				      (progn
+					(set-input-method nil)
+					(setq default-input-method nil)
+					(turn-off-ru-typo)
+					(turn-off-ru-syntax))
+				    (progn
+				      (set-input-method "russian-computer")
+				      (turn-on-ru-typo)
+				      (turn-on-ru-syntax))))))
 
 (global-set-key (kbd "M-s-«") (lambda ()
 				(interactive)
