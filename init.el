@@ -196,7 +196,7 @@
   :config
   (evil-leader/set-key
     "n"  'neotree-toggle)
-  ;; (setq projectile-switch-project-action 'neotree-projectile-action)
+  (setq projectile-switch-project-action 'neotree-projectile-action)
   (add-hook 'neotree-mode-hook
 	    (lambda ()
 	      (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
@@ -252,3 +252,6 @@
 				(interactive)
 				(indent-region (point-min) (point-max))
 				(delete-trailing-whitespace (point-min) (point-max))))
+
+(setq make-backup-files nil)
+(setq x-select-enable-clipboard nil)
