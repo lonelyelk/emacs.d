@@ -228,6 +228,11 @@
   (global-set-key [s-M-up] (ignore-error-wrapper 'windmove-up))
   (global-set-key [s-M-down] (ignore-error-wrapper 'windmove-down)))
 
+(use-package simpleclip
+  :ensure t
+  :init
+  (simpleclip-mode +1))
+
 (load "~/.emacs.d/ru-syntax.el")
 (use-package ru-syntax)
 
@@ -254,4 +259,8 @@
 				(delete-trailing-whitespace (point-min) (point-max))))
 
 (setq make-backup-files nil)
-(setq x-select-enable-clipboard nil)
+
+;; (setq interprogram-cut-function nil
+;;       interprogram-paste-function nil
+;;       x-select-enable-clipboard nil)
+
