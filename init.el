@@ -152,7 +152,7 @@
 (use-package evil-nerd-commenter
   :ensure t
   :init
-  (global-set-key (kbd "M-s-÷") 'evilnc-comment-or-uncomment-lines)
+  (global-set-key (kbd "M-s-«") 'evilnc-comment-or-uncomment-lines)
   (global-evil-leader-mode)
   (evil-leader/set-key
     "\\" 'evilnc-comment-operator)
@@ -234,6 +234,9 @@
   :init
   (simpleclip-mode +1))
 
+(load "~/.emacs.d/haml-mode.el")
+(use-package haml-mode)
+
 (load "~/.emacs.d/ru-syntax.el")
 (use-package ru-syntax)
 
@@ -254,7 +257,7 @@
 				      (turn-on-ru-typo)
 				      (turn-on-ru-syntax))))))
 
-(global-set-key (kbd "M-s-«") (lambda ()
+(global-set-key (kbd "M-s-÷") (lambda ()
 				(interactive)
 				(indent-region (point-min) (point-max))
 				(delete-trailing-whitespace (point-min) (point-max))))
